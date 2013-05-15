@@ -48,7 +48,7 @@ namespace formatCss
         /// <returns></returns>
         public static string FirstAttr(string str)
         {
-            string beFirstAttr = @"(\s*){(\s*)";
+            string beFirstAttr = @"\s*{\s*";
             string afFirstAttr = " {\r\n\t";
             string FirstAttr;
             FirstAttr = Regex.Replace(str, beFirstAttr,afFirstAttr);
