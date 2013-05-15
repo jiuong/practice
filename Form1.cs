@@ -19,6 +19,7 @@ namespace formatCss
         private void button1_Click(object sender, EventArgs e)
         {
             textBox2.Text = Css.CheckIndent(textBox1.Text);
+            textBox2.Text = Css.ToLower(textBox2.Text);
         }
 
         private void button3_Click(object sender, EventArgs e)
