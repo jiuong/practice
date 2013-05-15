@@ -71,5 +71,57 @@ namespace formatCss
             return checkIndent;
         }
         #endregion
+        
+                #region
+        /// <summary>
+        /// 将除了路径外的Css属性及值都转化为小写,看起来比较复杂。
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string ToLower(string str)
+        {
+            string lower;
+            string urlReg = @"\(\S+\)";
+            string styleName = @"(\.|#)\w+ ?(\w ?)*{";
+            string[] Url = getStrs(str, urlReg);
+            string[] SN = getStrs(str, styleName);
+            lower = Regex.Replace(str, urlReg, "@");
+            lower = Regex.Replace(lower, styleName, "&");
+            lower = lower.ToLower();
+            Regex UrlReg = new Regex("@");
+            Regex SNReg = new Regex("&");
+            for (int i = 0; i < Url.Length; i++)
+            {
+                lower = UrlReg.Replace(lower, Url[i], 1);
+            }
+            for (int i = 0; i < SN.Length; i++)
+            {
+                lower = SNReg.Replace(lower, SN[i], 1);
+            }
+            return lower;
+        }
+        #endregion
+
+
+        #region
+        /// <summary>
+        /// 返回匹配字符串数组
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="reg"></param>
+        /// <returns></returns>
+        static string[] getStrs(string input,string reg)
+        {
+            MatchCollection mc = Regex.Matches(input, reg);
+            string[] strs;
+            strs = new string[mc.Count];
+            for (int i = 0; i < mc.Count; i++)
+            {
+                strs[i] = mc[i].Value.ToString();
+            }
+            return strs;
+        }
+        #endregion
+
     }
 }
